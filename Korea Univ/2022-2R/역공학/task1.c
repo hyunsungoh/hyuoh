@@ -22,7 +22,7 @@ int main()
 
     for (int i = 0; i < 20; i++)
     {
-        printf("Str2[%d] is %d\n", i, Str2[i]);
+        printf("%x ", Str2[i]);
     }
 
     return 0;

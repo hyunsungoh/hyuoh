@@ -1,6 +1,6 @@
-var createProcess = Module.findExportByName("kernel32.dll", "CreateProcessA");
+var CreateProcessA = Module.findExportByName("kernel32.dll", "CreateProcessA");
 
-Interceptor.attach(createProcess, {
+Interceptor.attach(createProcessA, {
     onEnter: function(args)
     {
         // BOOL CreateProcessA(
@@ -16,20 +16,20 @@ Interceptor.attach(createProcess, {
         //     [out]               LPPROCESS_INFORMATION lpProcessInformation
         //   );
 
-        console.log("=== CreateProcess's lpApplicationName ===");
+        console.log("=== CreateProcessA's lpApplicationName ===");
         console.log(Memory.readUtf16String(args[0]));
 
-        console.log("=== CreateProcess's lpCommandLine ===");
+        console.log("=== CreateProcessA's lpCommandLine ===");
         console.log(Memory.readCString(args[1]));
         console.log(args[1]);
         
-        console.log("=== CreateProcess's lpProcessAttributes ===");
+        console.log("=== CreateProcessA's lpProcessAttributes ===");
         console.log(args[2]);
 
-        console.log("=== CreateProcess's lpThreadAttributes ===");
+        console.log("=== CreateProcessA's lpThreadAttributes ===");
         console.log(args[3]);
 
-        console.log("=== CreateProcess's bInheritHandles ===");
+        console.log("=== CreateProcessA's bInheritHandles ===");
         console.log(args[4]);
         if (args[4].and(0x0) != 0x0){
             console.log("False");
@@ -38,7 +38,7 @@ Interceptor.attach(createProcess, {
             console.log("True");
         }
 
-        console.log("=== CreateProcess's dwCreationFlags ===");
+        console.log("=== CreateProcessA's dwCreationFlags ===");
         console.log(args[5]);
         if (args[5] == 0x01000000){
             console.log("CREATE_BREAKAWAY_FROM_JOB");
@@ -102,16 +102,16 @@ Interceptor.attach(createProcess, {
             console.log("INHERIT_PARENT_AFFINITY");
         }
 
-        console.log("=== CreateProcess's lpEnvironment ===");
+        console.log("=== CreateProcessA's lpEnvironment ===");
         console.log(Memory.readUtf16String(args[6]));
 
-        console.log("=== CreateProcess's lpCurrentDirectory ===");
+        console.log("=== CreateProcessA's lpCurrentDirectory ===");
         console.log(args[7]);
 
-        console.log("=== CreateProcess's lpStartupInfo ===");
+        console.log("=== CreateProcessA's lpStartupInfo ===");
         console.log("Buffer dump:\n" + hexdump(args[8], { length: 128, ansi: true }));
 
-        console.log("=== CreateProcess's lpProcessInformation ===");
+        console.log("=== CreateProcessA's lpProcessInformation ===");
         console.log("Buffer dump:\n" + hexdump(args[9], { length: 128, ansi: true }));
         console.log("")
     },

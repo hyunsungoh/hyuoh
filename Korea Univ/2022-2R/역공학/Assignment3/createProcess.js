@@ -1,4 +1,4 @@
-var createFile = Module.findExportByName("kernel32.dll", "CreateProcessA");
+var createProcess = Module.findExportByName("kernel32.dll", "CreateProcessA");
 
 Interceptor.attach(createProcess, {
     onEnter: function(args)

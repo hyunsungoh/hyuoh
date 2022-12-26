@@ -16,7 +16,7 @@ Interceptor.attach(createProcess, {
         //     [out]               LPPROCESS_INFORMATION lpProcessInformation
         //   );
 
-        console.log("=== CreateFile's lpApplicationName ===");
+        console.log("=== CreateProcess's lpApplicationName ===");
         console.log(Memory.readUtf16String(args[0]));
 
         console.log("=== CreateProcess's lpCommandLine ===");
